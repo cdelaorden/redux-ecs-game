@@ -6,8 +6,6 @@ import createGameStore from './create_store'
 import App from './containers/app'
 import { Provider } from 'react-redux'
 
-import { createVector2D } from './engine'
-
 const store = createGameStore()
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('app'))
@@ -25,4 +23,3 @@ if(__DEV__){
   }
 }
 
-console.log(createVector2D(1, 5))

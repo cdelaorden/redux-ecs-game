@@ -25,7 +25,6 @@ class App extends Component {
     this.props.pauseGame(!isPaused)
   }
   render(){
-    const { x, y, radius, color } = this.props.ball
     return (
       <svg style={ stageStyle } height="600" width="1200" onClick={ this.handlePauseGame } >
         <Plotter x={0} y={0} height={600} width={1200} />
