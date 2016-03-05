@@ -3,7 +3,7 @@ import { fromJS } from 'immutable'
 import { GAME_START, GAME_PAUSE, GAME_END } from '../actions/types'
 
 const defaultState = fromJS({
-  isPaused: false,
+  isPaused: true,
   isGameOver: false,
   t0: 0,
   loopRequest: -1
@@ -16,7 +16,7 @@ export default function gameState(state = defaultState, action){
 
     case GAME_START:
       const { startTime, reqId } = action
-      return set.withMutations(s => {
+      return state.withMutations(s => {
         return s
           .set('isPaused', false)
           .set('t0', startTime)

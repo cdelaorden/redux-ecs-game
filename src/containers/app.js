@@ -1,14 +1,34 @@
 import React, { Component } from 'react'
 import Ball from '../components/ball'
+import Plotter from './plotter'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { startGame, pauseGame, endGame } from '../actions/game'
 
+
+const stageStyle = {
+  backgroundColor: '#fff',
+  border: '1px solid #333',
+  // borderRadius: '15px'
+}
+
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.handlePauseGame = this.handlePauseGame.bind(this)
+  }
+  componentDidMount(){
+    //this.props.startGame()
+  }
+  handlePauseGame(e){
+    const { isPaused } = this.props
+    this.props.pauseGame(!isPaused)
+  }
   render(){
+    const { x, y, radius, color } = this.props.ball
     return (
-      <svg height="600" width="1200">
-        <Ball cx={600} cy={300} r={20} />
+      <svg style={ stageStyle } height="600" width="1200" onClick={ this.handlePauseGame } >
+        <Plotter x={0} y={0} height={600} width={1200} />
       </svg>
     )
   }
@@ -17,7 +37,8 @@ class App extends Component {
 function mapStateToProps(state, ownProps){
   return {
     isPaused: state.game.get('isPaused'),
-    isGameOver: state.game.get('isGameOver')
+    isGameOver: state.game.get('isGameOver'),
+    ball: state.ball.toJS()
   }
 }
 
