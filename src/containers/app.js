@@ -1,9 +1,33 @@
 import React, { Component } from 'react'
+import Ball from '../components/ball'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { startGame, pauseGame, endGame } from '../actions/game'
 
 class App extends Component {
   render(){
-    return <h1>React is ready to rock and roll!</h1>
+    return (
+      <svg height="600" width="1200">
+        <Ball cx={600} cy={300} r={20} />
+      </svg>
+    )
   }
 }
 
-export default App
+function mapStateToProps(state, ownProps){
+  return {
+    isPaused: state.game.get('isPaused'),
+    isGameOver: state.game.get('isGameOver')
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    startGame,
+    endGame,
+    pauseGame
+  }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
