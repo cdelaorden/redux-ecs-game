@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Ball from '../components/ball'
-import Plotter from './plotter'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { startGame, pauseGame, endGame } from '../actions/game'
