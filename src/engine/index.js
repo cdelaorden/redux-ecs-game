@@ -1,11 +1,11 @@
-import { createStore, bindActionCreators } from 'redux'
+import { bindActionCreators, applyMiddleware } from 'redux'
 import * as actionCreators from './actions'
 
 /**
  * This a Redux store enhancer
  * It receives the previous createStore func and injects some game engine stuff the store returned
  */
-export function createEngine(createStore){
+export function createEngine(...middlewares){
   /**
 
   ** Engine state **
@@ -71,7 +71,7 @@ export function createEngine(createStore){
   */
 
   return (createStore) => (reducer, initialState, enhancer) => {
-    let store = createStore(reducer, initialState, enhancer)
+    let store = createStore(reducer, initialState, applyMiddleware(...middlewares))
     let engineActions = bindActionCreators(actionCreators, store.dispatch)
 
     return Object.assign(store, { engine: engineActions })

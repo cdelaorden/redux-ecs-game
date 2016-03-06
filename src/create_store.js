@@ -8,8 +8,7 @@ export default function createGameStore(){
   return createStore(
     rootReducer,
     compose(
-      createEngine(),
-      applyMiddleware(thunk, gameLoop)
+      createEngine(thunk, gameLoop)
     )
   )
 }
