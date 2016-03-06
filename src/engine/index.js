@@ -74,7 +74,29 @@ export function createEngine(...middlewares){
     let store = createStore(reducer, initialState, applyMiddleware(...middlewares))
     let engineActions = bindActionCreators(actionCreators, store.dispatch)
 
-    return Object.assign(store, { engine: engineActions })
+    //save every component, family and system in the store
+    //createComponents(components).forEach(a => store.dispatch(a))
+    // createSystems(systems).forEach(s => store.dispatch(s))
+    // createFamilies(families).forEach(s => store.dispatch(s))
+
+    function createComponents(comps){
+      return Object.keys(comps).forEach(k => engineActions.createComponent(k))
+    }
+
+    function createFamilies(families){
+      return Object.keys(families).forEach(f => engineActions.createFamily(f, families[f]))
+    }
+
+    function createSystems(systems){
+      return Object.keys(systems).forEach(s => engineActions.createSystem(s, systems[s]))
+    }
+
+    return Object.assign(store, { engine: engineActions, createComponents, createFamilies, createSystems })
   }
+}
+
+export default {
+  createEngine,
+  actionCreators
 }
 

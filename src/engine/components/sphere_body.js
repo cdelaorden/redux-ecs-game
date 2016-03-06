@@ -1,6 +1,6 @@
 import { Record } from 'immutable'
 
-export default const SphereBody = Record({
+export const SphereBody = Record({
   radius: 1,
   color: '#ff0000',
   strokeColor: '#000000',
@@ -8,12 +8,15 @@ export default const SphereBody = Record({
   visible: true
 })
 
-export function createSphereBody(radius, color, strokeColor, strokeWidth, visible){
-  return new SphereBody({
+export function createSphereBody(radius = 1, color = '#f00', strokeColor = '#000', strokeWidth = 1, visible = true){
+  //return new SphereBody({
+  return {
     radius,
     color,
     strokeColor,
     strokeWidth,
     visible
-  })
+  }
 }
+
+export default SphereBody

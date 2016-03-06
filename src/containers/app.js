@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Ball from '../components/ball'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { startGame, pauseGame, endGame } from '../actions/game'
-
+import { createBall } from '../actions/game'
+import { startGame, pauseGame } from '../engine/actions'
+import { appState } from '../selectors'
 
 const stageStyle = {
   backgroundColor: '#fff',
@@ -24,30 +25,27 @@ class App extends Component {
     this.props.pauseGame(!isPaused)
   }
   render(){
-    const { ball } = this.props
+    const { balls } = this.props
     return (
       <svg style={ stageStyle } height="600" width="1200" onClick={ this.handlePauseGame } >
-        <Ball cx={ ball.get('x')} cy={ ball.get('y')} r={ball.get('radius')} color={ ball.get('color')} />
+        { this._renderBalls(balls) }
       </svg>
     )
   }
-}
 
-function mapStateToProps(state, ownProps){
-  return {
-    isPaused: state.game.get('isPaused'),
-    isGameOver: state.game.get('isGameOver'),
-    ball: state.ball
+  _renderBalls(balls){
+    return balls.map((b, i) => {
+      return (<Ball key={i} cx={ b.position.x} cy={ b.position.y } r={b.body.radius} color={ b.body.color} />)
+    })
   }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     startGame,
-    endGame,
     pauseGame
   }, dispatch)
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(appState, mapDispatchToProps)(App)

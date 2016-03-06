@@ -1,6 +1,8 @@
 import { Record } from 'immutable'
 
-export default Family = new Record({
+const Family = new Record({
   name: 'Family',
   comps: []
 })
+
+export default Family
