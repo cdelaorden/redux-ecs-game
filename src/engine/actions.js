@@ -52,8 +52,15 @@ function loop(dispatch){
 }
 
 /** COMPONENT API ACTIONS **/
-export function createComponent(){
+export function createComponent(name, data){
   //TODO - the same as engine/components/create. should be here or there??
   //Probably here if its side effect is for the component type to be stored
+  return {
+    type: COMPONENT_CREATE,
+    name,
+    data
+  }
 }
+
+
 

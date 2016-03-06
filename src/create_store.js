@@ -1,11 +1,15 @@
 import thunk from 'redux-thunk'
-import gameLoop from './middleware/gameloop'
-import { createStore, applyMiddleware } from 'redux'
+import { createEngine } from './engine/index'
+import gameLoop from './engine/middleware/gameloop'
+import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from './reducers/index'
 
 export default function createGameStore(){
   return createStore(
     rootReducer,
-    applyMiddleware(thunk, gameLoop)
+    compose(
+      createEngine(),
+      applyMiddleware(thunk, gameLoop)
+    )
   )
 }

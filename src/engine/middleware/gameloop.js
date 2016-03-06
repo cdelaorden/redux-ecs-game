@@ -1,4 +1,4 @@
-import { GAME_UPDATE, GAME_START, GAME_PAUSE, GAME_END } from '../actions/types'
+import { GAME_UPDATE, GAME_START, GAME_PAUSE, GAME_END } from '../action_types'
 
 const gameMiddleware = store => next => action => {
   // if(action.type !== GAME_UPDATE){

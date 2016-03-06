@@ -1,8 +1,8 @@
-import createFamily from './create'
+import Family from './family'
 
 export default function createRenderable(){
-  return createFamily('Renderable', [
-    'Position',
-    'SphereBody'
-  ])
+  return new Family({
+    name: 'Renderable',
+    comps: [ 'Position', 'SphereBody' ]
+  })
 }

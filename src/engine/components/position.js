@@ -1,5 +1,10 @@
-import createComponent from './create'
+import { Record } from 'immutable'
 
-export default function createPosition(x = 0, y = 0){
-  return createComponent('Position', { x, y })
+export default const Position = Record({
+  x: 0,
+  y: 0
+})
+
+export function createPosition(x, y){
+  return new Position({x, y})
 }

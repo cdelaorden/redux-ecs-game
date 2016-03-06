@@ -1,13 +1,11 @@
-import { createStore } from 'redux'
-import createComponent from './components/create'
-import createFamily from './families/create'
-import createSystem from './systems/create'
-import actionCreators from './actions'
+import { createStore, bindActionCreators } from 'redux'
+import * as actionCreators from './actions'
 
-export * from './vector'
-
-function createEngine({ reducers, systems }){
-  //create system reducers from systems config
+/**
+ * This a Redux store enhancer
+ * It receives the previous createStore func and injects some game engine stuff the store returned
+ */
+export function createEngine(createStore){
   /**
 
   ** Engine state **
@@ -72,14 +70,11 @@ function createEngine({ reducers, systems }){
 
   */
 
-  return {
-    createComponent,
-    createFamily,
-    createSystem,
-    //TODO: bind this action creators so they can be used as "commands"
-    //outside Connected components
-    actionCreators
-    //...getState, dispatch
+  return (createStore) => (reducer, initialState, enhancer) => {
+    let store = createStore(reducer, initialState, enhancer)
+    let engineActions = bindActionCreators(actionCreators, store.dispatch)
+
+    return Object.assign(store, { engine: engineActions })
   }
 }
 
