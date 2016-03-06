@@ -6,9 +6,9 @@ const defaultState = fromJS({
   radius: 50,
   color: '#336699',
   x: 600,
-  y: 100,
-  vx: 2,
-  vy: 0
+  y: 200,
+  vx: 1,
+  vy: -6
 })
 
 //silly ball reducer
@@ -23,7 +23,7 @@ export default function ball(state = defaultState, action){
 }
 
 function moveBall(ball, { dt }){
-  //console.log('moveBall', dt)
+  console.log('moveBall', dt)
   return ball.withMutations(b => {
     b.update('vy', vy => vy + g)
     b.update('x', x => x + b.get('vx'))

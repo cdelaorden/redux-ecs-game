@@ -25,9 +25,10 @@ class App extends Component {
     this.props.pauseGame(!isPaused)
   }
   render(){
+    const { ball } = this.props
     return (
       <svg style={ stageStyle } height="600" width="1200" onClick={ this.handlePauseGame } >
-        <Plotter x={0} y={0} height={600} width={1200} />
+        <Ball cx={ ball.get('x')} cy={ ball.get('y')} r={ball.get('radius')} color={ ball.get('color')} />
       </svg>
     )
   }
@@ -37,7 +38,7 @@ function mapStateToProps(state, ownProps){
   return {
     isPaused: state.game.get('isPaused'),
     isGameOver: state.game.get('isGameOver'),
-    ball: state.ball.toJS()
+    ball: state.ball
   }
 }
 
