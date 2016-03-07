@@ -3,3 +3,4 @@ npm-debug.log
 .DS_Store
 dist/bundle.js
 dist/bundle.js.map
+dist/static

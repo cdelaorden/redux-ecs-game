@@ -1,9 +1,9 @@
 const path = require('path')
 
 module.exports = {
-  name: 'redux starter kit',
+  name: 'redux ECS',
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../dist/static'),
     filename: 'bundle.js',
     publicPath: '/static/',
   },
