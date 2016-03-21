@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import game from './game'
-import ball from './ball1'
+import game from '../engine/reducers/game'
+import hero from './hero'
+import solidBodies from './solid_bodies'
 
 const appReducer = combineReducers({
   game,
-  ball
+  hero,
+  solidBodies
 })
 
 export default appReducer

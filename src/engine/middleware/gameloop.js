@@ -8,7 +8,7 @@ const gameMiddleware = store => next => action => {
 
   let state = store.getState()
   //iterate systems
-  const systems = state.systems
+  const systems = state.systems || []
   systems.forEach((s,k) => {
     console.log('System', k, s.toJS())
     let requiredComps = getMergedFamilyComps(state, s.get('families'))

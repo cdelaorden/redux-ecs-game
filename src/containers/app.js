@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import Ball from '../components/ball'
+import Hero from '../sprites/hero'
+import Floor from '../sprites/floor'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createBall } from '../actions/game'
 import { startGame, pauseGame } from '../engine/actions'
 import { appState } from '../selectors'
+import { Map } from 'immutable'
 
 const stageStyle = {
   backgroundColor: '#fff',
@@ -24,19 +26,18 @@ class App extends Component {
     const { isPaused } = this.props
     this.props.pauseGame(!isPaused)
   }
+  renderPlatforms(platforms){
+    return platforms.map(p => <Floor key={p.get('id')} position={p.get('position')} size={p.get('size')} />)
+
+  }
   render(){
-    const { balls } = this.props
+    const { hero, platforms } = this.props
     return (
-      <svg style={ stageStyle } height="600" width="1200" onClick={ this.handlePauseGame } >
-        { this._renderBalls(balls) }
+      <svg style={ stageStyle } height="768" width="1024" onClick={ this.handlePauseGame } >
+        { this.renderPlatforms(platforms) }
+        <Hero position={hero.get('position')} heroState={hero.get('state')} />
       </svg>
     )
-  }
-
-  _renderBalls(balls){
-    return balls.map((b, i) => {
-      return (<Ball key={i} cx={ b.position.x} cy={ b.position.y } r={b.body.radius} color={ b.body.color} />)
-    })
   }
 }
 

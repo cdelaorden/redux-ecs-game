@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="56px" viewBox="0 0 48 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>Hero + Dir</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Tablet-9″-Landscape" transform="translate(-133.000000, -660.000000)" stroke="#979797">
+            <g id="Hero-+-Dir" transform="translate(133.000000, 660.000000)">
+                <rect id="hero" fill="#FF0000" x="0" y="0" width="48" height="56" rx="8"></rect>
+                <path d="M10,43 L10,15 L38,29 L10,43 Z" id="Triangle-4" fill="#F8E81C"></path>
+            </g>
+        </g>
+    </g>
+</svg>

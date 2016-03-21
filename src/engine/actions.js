@@ -18,7 +18,7 @@ export function startGame(){
 }
 
 export function updateGame(dispatch, dt) {
-  console.log('updateGame', dt)
+  //console.log('updateGame', dt)
   dispatch({
     type: GAME_UPDATE,
     dt

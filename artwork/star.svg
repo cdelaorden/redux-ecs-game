@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="47px" height="53px" viewBox="0 0 47 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>Star 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FBDA61" offset="0%"></stop>
+            <stop stop-color="#F76B1C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Tablet-9″-Landscape" transform="translate(0.000000, -255.000000)" stroke="#979797" fill="url(#linearGradient-1)">
+            <polygon id="Star-1" points="23.5 297.75 9.68704657 306.556984 12.3250859 287.903492 1.15017187 274.693016 16.5935233 271.971508 23.5 255 30.4064767 271.971508 45.8498281 274.693016 34.6749141 287.903492 37.3129534 306.556984 "></polygon>
+        </g>
+    </g>
+</svg>
