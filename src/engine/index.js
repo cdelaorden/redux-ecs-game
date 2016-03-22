@@ -5,6 +5,21 @@ const Entity = Record({
   components: Map()
 })
 
+class GameEntity extends Entity {
+  getComponents(){
+    return this.components
+  }
+  addComponent(name, c){
+    if(!Map.isMap(c)){
+      throw new Error('addComponent expects a Map or Record')
+    }
+    return this.setIn(['components', name], c)
+  }
+  updateComponent(name, func){
+    return this.updateIn(['components', name], func)
+  }
+}
+
 function verifySystemDefinition(ss){
   return ss.reduce((acc, s) => {
     if(typeof s.name !== 'string'){
@@ -37,12 +52,23 @@ export function createEngine(systems = []){
     _systems.forEach(s => {
       _entities = s.update(_entities, time)
     })
+    _rAF = requestAnimationFrame(update)
   }
 
   function createEntity(components = Map()){
     let e = new Entity({ id: _nextId++, components})
     _entities = _entities.set(e.id, e)
     return e
+  }
+
+  function addComponent(id, name, c){
+    if(!id || !name || !c){
+      throw new Error('addComponent - id, name and component definition are required')
+    }
+    _entities = _entities.update(id, (entity) => {
+      return entity.setIn(['components', name], c)
+    })
+    return _entities.get(id)
   }
 
   function getEntities(withComps = []){
@@ -70,6 +96,7 @@ export function createEngine(systems = []){
     stop,
     pause,
     createEntity,
+    addComponent,
     getEntities,
     isRunning: () => _isRunning
   }

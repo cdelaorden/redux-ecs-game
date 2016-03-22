@@ -1,20 +1,26 @@
 import jsdom from 'mocha-jsdom'
 import raf from 'raf'
 import { createEngine } from '../../engine'
-import { Map, fromJS } from 'immutable'
+import { Map, fromJS, Record } from 'immutable'
 import assert from 'assert'
 
 describe('Engine', () => {
   jsdom()
   raf.polyfill()
 
-  it('createEngine returns a a game engine with start, pause, stop, isRunning, createEntity, getEntities methods', () => {
+  const HealthComponent = Record({
+    value: 100
+  })
+
+
+  it('createEngine returns a a game engine with functions', () => {
     let engine = createEngine([])
     assert.equal('function', typeof engine.start)
     assert.equal('function', typeof engine.pause)
     assert.equal('function', typeof engine.stop)
     assert.equal('function', typeof engine.isRunning)
     assert.equal('function', typeof engine.createEntity)
+    assert.equal('function', typeof engine.addComponent)
     assert.equal('function', typeof engine.getEntities)
   })
 
@@ -43,6 +49,16 @@ describe('Engine', () => {
     assert.equal(1, entity.components.get('comp1').get('foo'))
   })
 
+  it('addComponent adds a component to an entity (and returns the entity)', () => {
+    let engine = createEngine(),
+        e = engine.createEntity(),
+        id = e.id
+
+    e = engine.addComponent(id, 'health', new HealthComponent())
+    assert.equal(1, e.components.count())
+    assert.equal(100, e.components.get('health').value)
+  })
+
   it('getEntities returns existing entities', () => {
     const engine = createEngine(),
           comps = fromJS({
@@ -61,12 +77,15 @@ describe('Engine', () => {
           comps = fromJS({
             size: { width: 100 }
           }),
-          entity = engine.createEntity(comps)
+          entity = engine.createEntity(comps),
+          ent2 = engine.createEntity(fromJS({ foobar: { foo: 1}}))
 
-    let ents = engine.getEntities(['size'])
-    assert.equal(1, ents.count())
-    let emptyEnts = engine.getEntities(['fake'])
-    assert.equal(0, emptyEnts.count())
+    //1 with size
+    assert.equal(1, engine.getEntities(['size']).count())
+    //1 with foobar
+    assert.equal(1, engine.getEntities(['foobar']).count())
+    //None has foobaz
+    assert.equal(0, engine.getEntities(['foobaz']).count())
   })
 
   it('start should begin rAF', () => {
@@ -84,13 +103,15 @@ describe('Engine', () => {
   })
 
   it('during loop, systems should be called with list of entities matching its comps and its results stored', (done) => {
+    let updates = 0
     const systems = [{
       name: 'gravity',
       update: function(entities, dt){
+        updates++
         assert.equal(1, entities.count())
         assert.equal('number', typeof dt)
         return entities.map(e => {
-          return e.setIn(['components', 'foo', 'bar'], 2)
+          return e.setIn(['components', 'foo', 'bar'], updates)
         })
       }
     }]
@@ -99,11 +120,12 @@ describe('Engine', () => {
 
     engine.start()
     setTimeout(() => {
-      let ents = engine.getEntities()
-      assert.equal(2, ents.first().components.getIn(['foo', 'bar']))
-      done()
       engine.stop()
-    }, 16)
+      let ents = engine.getEntities()
+      assert.equal(updates, ents.first().components.getIn(['foo', 'bar']))
+      assert(updates > 0, 'Update() loops')
+      done()
+    }, 30)
   })
 })
 
