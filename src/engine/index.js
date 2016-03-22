@@ -42,6 +42,7 @@ export function createEngine(systems = []){
       _systems = systems,
       _entities = Map(),
       _isRunning = false,
+      _lastTime = 0,
       _rAF = 0
 
       if(!verifySystemDefinition(_systems)){
@@ -49,8 +50,13 @@ export function createEngine(systems = []){
       }
 
   function update(time){
+    if(_lastTime === 0)
+      _lastTime = time
+
+    //_lastTime = time - _lastTime
+    let dt = time - _lastTime
     _systems.forEach(s => {
-      _entities = s.update(_entities, time)
+      _entities = s.update(_entities, dt)
     })
     _rAF = requestAnimationFrame(update)
   }
@@ -79,6 +85,7 @@ export function createEngine(systems = []){
 
   function start(){
     _isRunning = true
+    //_lastTime = Date.now()
     _rAF = requestAnimationFrame(update)
   }
 

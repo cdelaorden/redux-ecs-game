@@ -107,6 +107,7 @@ describe('Engine', () => {
     const systems = [{
       name: 'gravity',
       update: function(entities, dt){
+        console.log(dt)
         updates++
         assert.equal(1, entities.count())
         assert.equal('number', typeof dt)
@@ -125,7 +126,7 @@ describe('Engine', () => {
       assert.equal(updates, ents.first().components.getIn(['foo', 'bar']))
       assert(updates > 0, 'Update() loops')
       done()
-    }, 30)
+    }, 65)
   })
 })
 
