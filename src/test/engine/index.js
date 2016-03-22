@@ -102,7 +102,7 @@ describe('Engine', () => {
     assert.equal(engine.isRunning(), false)
   })
 
-  it('during loop, systems should be called with list of entities matching its comps and its results stored', (done) => {
+  it('during loop, systems should be called with the list of entities and passed time, and its results stored', (done) => {
     let updates = 0
     const systems = [{
       name: 'gravity',
